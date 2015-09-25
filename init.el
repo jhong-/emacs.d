@@ -23,9 +23,20 @@
 (load-theme 'zenburn t)
 
 (require-package 'better-defaults)
-(require-package 'helm)
 (require-package 'magit)
 (require-package 'projectile)
+
+; From: http://tuhdo.github.io/helm-intro.html
+(require-package 'helm)
+(require 'helm-config)
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring-package)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(helm-mode 1)
 
 (require-package 'nyan-mode)
 (nyan-mode t)
