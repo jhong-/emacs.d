@@ -23,7 +23,6 @@
 (load-theme 'zenburn t)
 
 (require-package 'better-defaults)
-(require-package 'magit)
 (require-package 'projectile)
 
 ; From: http://tuhdo.github.io/helm-intro.html
@@ -37,6 +36,10 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (helm-mode 1)
+
+; Magit for Git manipulation
+(require-package 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (require-package 'nyan-mode)
 (nyan-mode t)
