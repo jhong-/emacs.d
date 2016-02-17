@@ -45,6 +45,14 @@
 (require-package 'helm-descbinds)
 (helm-descbinds-mode)
 
+; Flycheck
+(require-package 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(require-package 'flycheck-pos-tip)
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
+
 ; Magit for Git manipulation
 (require-package 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
