@@ -23,7 +23,11 @@
 (load-theme 'zenburn t)
 
 (require-package 'better-defaults)
+
+; Projectile
 (require-package 'projectile)
+(projectile-global-mode t)
+(setq projectile-use-git-grep t)
 
 ; From: http://tuhdo.github.io/helm-intro.html
 (require-package 'helm)
