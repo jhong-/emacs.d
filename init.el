@@ -71,6 +71,9 @@
 ; Display line numbers
 (global-linum-mode 1)
 
+; Display column number
+(column-number-mode 1)
+
 (setq tab-width 2) ; Tabwidth
 (setq-default js-indent-level 2) ; JavaScript
 
