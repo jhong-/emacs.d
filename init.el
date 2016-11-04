@@ -41,6 +41,9 @@
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (helm-mode 1)
 
+; Enable lookup of recently opened files
+(recentf-mode t)
+
 ; Press C-h after starting keystroke sequence to lookup available commands
 (require-package 'helm-descbinds)
 (helm-descbinds-mode)
