@@ -92,3 +92,6 @@
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
+
+; Remove trailing whitespace upon saving a file
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
