@@ -71,6 +71,10 @@
 (require-package 'evil)
 (evil-mode 1)
 
+; Enable VIM-like tabbing
+(require-package 'evil-tabs)
+(global-evil-tabs-mode t)
+
 ; Display line numbers
 (global-linum-mode 1)
 
