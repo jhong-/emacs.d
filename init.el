@@ -5,75 +5,68 @@
                          ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
-; Not sure how this exactly works yet
-(defun require-package (package &optional min-version no-refresh)
-  "Install given PACKAGE, optionally requiring MIN-VERSION. If NO-REFRESH is
-  non-nil, the available package lists will not be called and re-downloaded in
-  order to locate PACKAGE."
-  (if (package-installed-p package min-version)
-    t
-    (if (or (assoc package package-archive-contents) no-refresh)
-      (package-install package)
-      (progn
-        (package-refresh-contents)
-        (require-package package min-version t)))))
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(setq use-package-always-ensure t
+      use-package-verbose t)
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
 ; Setup theme
-(require-package 'zenburn-theme)
-(load-theme 'zenburn t)
+(use-package zenburn-theme
+  :config (load-theme 'zenburn t))
 
-(require-package 'better-defaults)
+(use-package better-defaults)
 
 ; Projectile
-(require-package 'projectile)
-(projectile-global-mode t)
-(setq projectile-use-git-grep t)
+(use-package projectile
+  :config (projectile-global-mode t)
+          (setq projectile-use-git-grep t))
 
 ; From: http://tuhdo.github.io/helm-intro.html
-(require-package 'helm)
-(require 'helm-config)
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring-package)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(helm-mode 1)
+(use-package helm
+  :bind (("C-c h" . helm-command-prefix)
+         ("M-x" . helm-M-x)
+         ("M-y" . helm-show-kill-ring-package)
+         ("C-x b" . helm-mini)
+         ("C-x C-f" . helm-find-files))
+  :config (require 'helm-config)
+          (helm-mode 1)
+          (global-unset-key (kbd "C-x c"))
+          (global-set-key (kbd "C-c h o") 'helm-occur))
 
 ; Enable lookup of recently opened files
 (recentf-mode t)
 
 ; Press C-h after starting keystroke sequence to lookup available commands
-(require-package 'helm-descbinds)
-(helm-descbinds-mode)
+(use-package helm-descbinds
+  :config (helm-descbinds-mode))
 
 ; Flycheck
-(require-package 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-(require-package 'flycheck-pos-tip)
-(with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
+(use-package flycheck
+  :config (add-hook 'after-init-hook #'global-flycheck-mode)
+          (use-package flycheck-pos-tip
+            :config (flycheck-pos-tip-mode)))
 
 ; Magit for Git manipulation
-(require-package 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
+(use-package magit
+  :bind ("C-x g" . magit-status))
 
-(require-package 'nyan-mode)
-(nyan-mode t)
+(use-package nyan-mode
+  :config (nyan-mode t))
 
 ; Clojure Development
-(require-package 'cider)
-(require-package 'clojure-mode)
+(use-package cider)
+(use-package clojure-mode)
 
 ; Enable evil-mode
-(require-package 'evil)
-(evil-mode 1)
-
-; Enable VIM-like tabbing
-(require-package 'evil-tabs)
-(global-evil-tabs-mode t)
+(use-package evil
+  :config (evil-mode 1)
+          ; Enable VIM-like tabbing
+          (use-package evil-tabs
+            :config (global-evil-tabs-mode t)))
 
 ; Display line numbers
 (global-linum-mode 1)
@@ -88,10 +81,10 @@
 (global-hl-line-mode 1)
 
 ; Less jumpy scrolling
-(require-package 'smooth-scroll)
-(setq scroll-step 1)
-(setq scroll-conservatively 10000)
-(setq auto-window-vscroll nil)
+(use-package smooth-scroll
+  :config (setq scroll-step 1)
+          (setq scroll-conservatively 10000)
+          (setq auto-window-vscroll nil))
 
 ; Remove trailing whitespace upon saving a file
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
