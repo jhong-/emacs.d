@@ -14,6 +14,10 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :init (exec-path-from-shell-initialize))
+
 ; Setup theme
 (use-package zenburn-theme
   :config (load-theme 'zenburn t))
