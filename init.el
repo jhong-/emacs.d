@@ -66,6 +66,8 @@
 ; Enable evil-mode
 (use-package evil
   :config (evil-mode 1)
+          ; Remember search history
+          (evil-select-search-module 'evil-search-module 'evil-search)
           ; Enable VIM-like tabbing
           (use-package evil-tabs
             :config (global-evil-tabs-mode t)))
@@ -78,6 +80,9 @@
 
 ; Display column number
 (column-number-mode 1)
+
+; Disable auto save
+(setq auto-save-default nil)
 
 (setq tab-width 2) ; Tabwidth
 (setq-default js-indent-level 2) ; JavaScript
