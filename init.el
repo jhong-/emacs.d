@@ -70,6 +70,9 @@
           (use-package evil-tabs
             :config (global-evil-tabs-mode t)))
 
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+
 ; Display line numbers
 (global-linum-mode 1)
 
